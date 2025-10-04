@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Launch Your Digital Product Without Being an Expert</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --secondary: #8b5cf6;
+            --accent: #06b6d4;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-card: #1a1a1a;
+            --bg-hero: #0a0a0a;
+            --border: #262626;
+            --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            --gradient-secondary: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+            --gradient-hero: linear-gradient(135deg, #0a0a0a 0%, #111111 50%, #1a1a1a 100%);
+            --gradient-glow: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #a855f7 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            overflow-x: hidden;
+        }
+
+        /* Fixed Header */
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            background: var(--bg-hero);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .animated-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, rgba(168, 85, 247, 0.05) 0%, transparent 50%);
+            animation: float 30s ease-in-out infinite;
+        }
+
+        .animated-bg::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233b82f6' fill-opacity='0.03'%3E%3Ccircle cx='50' cy='50' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            animation: drift 40s linear infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-30px) scale(1.1); }
+        }
+
+        @keyframes drift {
+            0% { transform: translateX(0px) translateY(0px); }
+            100% { transform: translateX(-100px) translateY(-100px); }
+        }
+
+        .gradient-text {
+            background: var(--gradient-glow);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hand-drawn-underline {
+            position: relative;
+            display: inline-block;
+        }
+
+        .hand-drawn-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-glow);
+            border-radius: 2px;
+            transform: rotate(-0.5deg);
+            animation: underline-draw 0.8s ease-out 0.5s both;
+        }
+
+        @keyframes underline-draw {
+            from {
+                width: 0;
+                left: 50%;
+            }
+            to {
+                width: 100%;
+                left: 0;
+            }
+        }
+
+        .flow-step {
+            animation: flow-pulse 2s ease-in-out infinite;
+        }
+
+        .flow-step:nth-child(1) { animation-delay: 0s; }
+        .flow-step:nth-child(3) { animation-delay: 0.5s; }
+        .flow-step:nth-child(5) { animation-delay: 1s; }
+
+        .flow-arrow {
+            color: var(--primary);
+            font-size: 24px;
+            font-weight: bold;
+            animation: flow-arrow 2s ease-in-out infinite;
+        }
+
+        @keyframes flow-pulse {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        @keyframes flow-arrow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .btn-primary {
+            background: var(--gradient-glow);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 40px rgba(59, 130, 246, 0.6);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary);
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-free {
+            background: var(--gradient-glow);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-free:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .hero {
+            background: var(--gradient-hero);
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233b82f6' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            border-color: var(--primary);
+        }
+
+        .mockup-container {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border);
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 24px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .testimonial {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid var(--primary);
+        }
+
+        .stars {
+            color: #fbbf24;
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .section-padding {
+                padding: 60px 0;
+            }
+            
+            .container {
+                padding: 0 16px;
+            }
+            
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Header -->
+    <header class="fixed-header">
+        <div class="container">
+            <div class="flex items-center justify-between py-4">
+                <div class="text-xl font-bold text-white">Viggest AI Builder</div>
+                <button class="btn-free">Try It Free</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero animated-bg">
+        <div class="container relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="fade-in">
+                    <h1 class="text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
+                        Launch Your Digital Product <span class="gradient-text">in minutes</span> Without Being <span class="hand-drawn-underline">an Expert</span>
+                    </h1>
+                    <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+                        <span class="gradient-text font-semibold">Our AI do the heavylifting.</span> 
+                        Go from zero to your first sale in 72 hours - just follow our 3 steps.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 mb-8">
+                        <button class="btn-primary" onclick="scrollToFeatures()">
+                            Let AI Do It For You - Free
+                        </button>
+                        <button class="btn-secondary" onclick="scrollToDemo()">
+                            See How It Works
+                        </button>
+                    </div>
+                    <div class="flex items-center gap-8 text-sm text-gray-400">
+                        <div class="flex items-center gap-2">
+                            <div class="w-2 h-2 bg-green-500 rounded-full pulse"></div>
+                            <span>No marketing degree. Just results.</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-2 h-2 bg-blue-500 rounded-full pulse"></div>
+                            <span>Thousands of launches already powered by AI.</span>
+                        </div>
+                    </div>  
+                </div>
+                <div class="fade-in floating">
+                    <div class="mockup-container">
+                        <svg width="600" height="400" viewBox="0 0 600 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Background -->
+                            <rect width="600" height="400" rx="16" fill="#1e293b"/>
+                            
+                            <!-- Success Notification -->
+                            <rect x="400" y="20" width="180" height="60" rx="8" fill="#10b981"/>
+                            <text x="420" y="40" fill="white" font-size="12" font-weight="bold">💰 First Sale!</text>
+                            <text x="420" y="55" fill="white" font-size="10">$47 earned today</text>
+                            <text x="420" y="70" fill="white" font-size="9">Keep it up! 🚀</text>
+                            
+                            <!-- Dashboard -->
+                            <rect x="40" y="100" width="520" height="280" rx="12" fill="#0f172a"/>
+                            
+                            <!-- Header -->
+                            <rect x="60" y="120" width="480" height="40" rx="8" fill="#1e293b"/>
+                            <text x="80" y="140" fill="white" font-size="14" font-weight="bold">21-Day Self-Love Challenge</text>
+                            <text x="80" y="155" fill="#94a3b8" font-size="10">Welcome back, Sarah!</text>
+                            
+                            <!-- Stats Cards -->
+                            <rect x="80" y="180" width="120" height="80" rx="8" fill="#1e293b"/>
+                            <text x="90" y="200" fill="white" font-size="12" font-weight="bold">Today's Revenue</text>
+                            <text x="90" y="220" fill="#10b981" font-size="18" font-weight="bold">$47</text>
+                            <text x="90" y="235" fill="#94a3b8" font-size="9">+$12 from yesterday</text>
+                            
+                            <rect x="220" y="180" width="120" height="80" rx="8" fill="#1e293b"/>
+                            <text x="230" y="200" fill="white" font-size="12" font-weight="bold">Total Sales</text>
+                            <text x="230" y="220" fill="#3b82f6" font-size="18" font-weight="bold">23</text>
+                            <text x="230" y="235" fill="#94a3b8" font-size="9">This month</text>
+                            
+                            <rect x="360" y="180" width="120" height="80" rx="8" fill="#1e293b"/>
+                            <text x="370" y="200" fill="white" font-size="12" font-weight="bold">Conversion</text>
+                            <text x="370" y="220" fill="#8b5cf6" font-size="18" font-weight="bold">12.5%</text>
+                            <text x="370" y="235" fill="#94a3b8" font-size="9">Above average</text>
+                            
+                            <!-- Recent Activity -->
+                            <rect x="80" y="280" width="400" height="80" rx="8" fill="#1e293b"/>
+                            <text x="90" y="300" fill="white" font-size="12" font-weight="bold">Recent Activity</text>
+                            <text x="90" y="315" fill="#94a3b8" font-size="10">✅ New customer: John D. - $47</text>
+                            <text x="90" y="330" fill="#94a3b8" font-size="10">📧 Email sent to 15 prospects</text>
+                            <text x="90" y="345" fill="#94a3b8" font-size="10">🚀 Product updated with AI suggestions</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="section-padding" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-6 text-white">How It Works</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Three simple steps to your first digital business. No technical skills required.
+                </p>
+            </div>
+            
+            <!-- Flow Animation -->
+            <div class="flex justify-center mb-12">
+                <div class="flex items-center space-x-4">
+                    <div class="flow-step">
+                        <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style="background: var(--gradient-glow);">
+                            <span class="text-2xl">💡</span>
+                        </div>
+                        <div class="text-sm text-gray-400">Unique Idea</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style="background: var(--gradient-glow);">
+                            <span class="text-2xl">📋</span>
+                        </div>
+                        <div class="text-sm text-gray-400">Roadmap</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style="background: var(--gradient-glow);">
+                            <span class="text-2xl">🚀</span>
+                        </div>
+                        <div class="text-sm text-gray-400">Launch and Sale</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="fade-in text-center feature-card">
+                    <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%); border: 1px solid var(--primary);">
+                        <span class="text-3xl">💡</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-white">1. Tell AI About You</h3>
+                    <p class="text-gray-300 mb-6">
+                        Share your passions, skills, interests & what problems you'd like to solve.
+                        <span class="gradient-text font-semibold">AI will find a unique idea for you.</span>
+                    </p>
+                    <div class="p-4 rounded-lg" style="background: var(--bg-card); border: 1px solid var(--border);">
+                        <p class="text-sm text-gray-400 italic">"I love fitness and want to help people get in shape"</p>
+                    </div>
+                </div>
+                <div class="fade-in text-center feature-card">
+                    <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%); border: 1px solid var(--primary);">
+                        <span class="text-3xl">📋</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-white">2. Get Your Unique Idea & Custom Blueprint</h3>
+                    <p class="text-gray-300 mb-6">
+                        AI finds the perfect opportunity for you and tailors a custom roadmap to get you to your first sale.
+                    </p>
+                    <div class="p-4 rounded-lg" style="background: var(--bg-card); border: 1px solid var(--border);">
+                        <p class="text-sm text-gray-400 italic">"Fitness eBook for Busy Moms - $47 price point, 85% profit margin"</p>
+                    </div>
+                </div>
+                <div class="fade-in text-center feature-card">
+                    <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%); border: 1px solid var(--primary);">
+                        <span class="text-3xl">🚀</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-white">3. Launch & Print</h3>
+                    <p class="text-gray-300 mb-6">
+                        We handle the technical stuff, you focus on sharing your knowledge and printing money.
+                    </p>
+                    <div class="p-4 rounded-lg" style="background: var(--bg-card); border: 1px solid var(--border);">
+                        <p class="text-sm text-gray-400 italic">"First sale in 3 days: $47 earned!"</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+                <button class="btn-primary" onclick="scrollToFeatures()">
+                    Try It Free — Build Your First Product
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <section class="section-padding" style="background: var(--bg-primary);">
+        <div class="container">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-6 text-white">Trusted by Aspiring Creators, Coaches, and Entrepreneurs</h2>
+                <p class="text-xl text-gray-300">Join the people who are taking over the AI era</p>
+            </div>
+            
+            <!-- Stats -->
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <div class="text-center feature-card">
+                    <div class="text-4xl font-bold mb-2 gradient-text">2,000+</div>
+                    <div class="text-gray-300">launches powered by AI</div>
+                </div>
+                <div class="text-center feature-card">
+                    <div class="text-4xl font-bold mb-2 gradient-text">$8.9M+</div>
+                    <div class="text-gray-300">revenue generated</div>
+                </div>
+                <div class="text-center feature-card">
+                    <div class="text-4xl font-bold mb-2 gradient-text">98%</div>
+                    <div class="text-gray-300">success rate</div>
+                </div>
+            </div>
+
+            <!-- Logos -->
+            <div class="text-center mb-16">
+                <p class="text-gray-400 mb-8">Trusted by creators on</p>
+                <div class="flex justify-center items-center space-x-8 opacity-60">
+                    <div class="text-2xl font-bold text-gray-500">Reddit</div>
+                    <div class="text-2xl font-bold text-gray-500">YouTube</div>
+                    <div class="text-2xl font-bold text-gray-500">IndieHackers</div>
+                    <div class="text-2xl font-bold text-gray-500">Gumroad</div>
+                </div>
+            </div>
+
+            <!-- Testimonials -->
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="testimonial feature-card">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center mr-4" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%); border: 1px solid var(--primary);">
+                            <span class="text-blue-400 font-bold">MG</span>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-gray-800">María G.</div>
+                            <div class="text-sm text-gray-600">Student</div>
+                        </div>
+                    </div>
+                    <div class="stars mb-3 text-yellow-400">★★★★★</div>
+                    <p class="text-gray-500 mb-4">"Just hit $500 in 5 days. I never thought it was possible without any experience."</p>
+                </div>
+                
+                <div class="testimonial feature-card">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center mr-4" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%); border: 1px solid var(--primary);">
+                            <span class="text-green-400 font-bold">CR</span>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-gray-800">Carlos R.</div>
+                            <div class="text-sm text-gray-600">Content Creator</div>
+                        </div>
+                    </div>
+                    <div class="stars mb-3 text-yellow-400">★★★★★</div>
+                    <p class="text-gray-500 mb-4">"Finally a tool that does the hard work for me. I just followed the plan."</p>
+                </div>
+                
+                <div class="testimonial feature-card">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center mr-4" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%); border: 1px solid var(--primary);">
+                            <span class="text-purple-400 font-bold">LS</span>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-gray-800">Laura S.</div>
+                            <div class="text-sm text-gray-600">Aspiring Entrepreneur</div>
+                        </div>
+                    </div>
+                    <div class="stars mb-3 text-yellow-400">★★★★★</div>
+                    <p class="text-gray-500 mb-4">"This gave me the courage to launch. I'd been stuck for years."</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <button class="btn-primary" onclick="scrollToFeatures()">
+                    Start Your Success Story
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Emotional Hook Section -->
+    <section class="section-padding" style="background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2d1b69 100%); position: relative; overflow: hidden;">
+        <div class="container text-center relative z-10">
+            <div class="fade-in">
+                <h2 class="text-5xl lg:text-6xl font-bold mb-6 text-white">
+                    You Don't Need to Be an Expert to Start Your Business
+                </h2>
+                <p class="text-xl mb-8 max-w-4xl mx-auto leading-relaxed text-gray-300">
+                    Most people never start because they think they need coding, marketing, or a unique idea. 
+                    <span class="gradient-text font-semibold">Our AI removes all those barriers.</span> 
+                    Now, anyone can launch their first product — and see results faster than they ever thought possible.
+                </p>
+                <button class="btn-primary text-lg px-8 py-4" onclick="scrollToTop()">
+                    Start Your Journey Now — Free Trial
+                </button>
+            </div>
+        </div>
+        <!-- Animated background elements -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-20 left-20 w-32 h-32 bg-blue-500 rounded-full blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-20 right-20 w-40 h-40 bg-purple-500 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+            <div class="absolute top-1/2 left-1/2 w-24 h-24 bg-indigo-500 rounded-full blur-2xl animate-pulse" style="animation-delay: 2s;"></div>
+        </div>
+    </section>
+
+    <!-- Market Intelligence Section -->
+    <section class="section-padding" style="background: var(--bg-primary);">
+        <div class="container">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-6 text-white">AI Does the Research, You Get the Winning Plan</h2>
+                <p class="text-xl text-gray-300">Our AI analyzes thousands of data points to find your perfect opportunity</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="feature-card text-center">
+                    <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6" style="background: var(--gradient-glow);">
+                        <span class="text-2xl">📈</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-white">Finds Trending Topics</h3>
+                    <p class="text-gray-300">Before they peak, giving you first-mover advantage</p>
+                </div>
+                
+                <div class="feature-card text-center">
+                    <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6" style="background: var(--gradient-glow);">
+                        <span class="text-2xl">🎯</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-white">Filters Saturated Markets</h3>
+                    <p class="text-gray-300">Automatically, so you don't waste time on oversaturated niches</p>
+                </div>
+                
+                <div class="feature-card text-center">
+                    <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6" style="background: var(--gradient-glow);">
+                        <span class="text-2xl">💰</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-white">Suggests Optimal Pricing</h3>
+                    <p class="text-gray-300">And positioning for maximum profit potential</p>
+                </div>
+                
+                <div class="feature-card text-center">
+                    <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6" style="background: var(--gradient-glow);">
+                        <span class="text-2xl">📄</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-white">Done-for-You Templates</h3>
+                    <p class="text-gray-300">Launch templates, sales pages, and email sequences</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <button class="btn-primary" onclick="scrollToFeatures()">
+                    Get Your Market Intelligence
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section-padding" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-6 text-white">Frequently Asked Questions</h2>
+                <p class="text-xl text-gray-300">Everything you need to know to get started</p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto space-y-4">
+                <div class="faq-item feature-card">
+                    <button class="faq-question w-full text-left flex justify-between items-center" onclick="toggleFAQ(0)">
+                        <h3 class="text-lg font-semibold text-white">Do I need experience?</h3>
+                        <span class="faq-icon text-2xl text-gray-400">+</span>
+                    </button>
+                    <div class="faq-answer hidden mt-4">
+                        <p class="text-gray-300">No. Our AI handles research, product plan, and even marketing copy.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item feature-card">
+                    <button class="faq-question w-full text-left flex justify-between items-center" onclick="toggleFAQ(1)">
+                        <h3 class="text-lg font-semibold text-white">What if I don't know what to sell?</h3>
+                        <span class="faq-icon text-2xl text-gray-400">+</span>
+                    </button>
+                    <div class="faq-answer hidden mt-4">
+                        <p class="text-gray-300">The AI finds your unique profitable idea based on your interests & skills and market trends</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item feature-card">
+                    <button class="faq-question w-full text-left flex justify-between items-center" onclick="toggleFAQ(2)">
+                        <h3 class="text-lg font-semibold text-white">How fast can I see results?</h3>
+                        <span class="faq-icon text-2xl text-gray-400">+</span>
+                    </button>
+                    <div class="faq-answer hidden mt-4">
+                        <p class="text-gray-300">Most users launch in under a week — and some make their first sale within days.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item feature-card">
+                    <button class="faq-question w-full text-left flex justify-between items-center" onclick="toggleFAQ(3)">
+                        <h3 class="text-lg font-semibold text-white">Is it really free to start?</h3>
+                        <span class="faq-icon text-2xl text-gray-400">+</span>
+                    </button>
+                    <div class="faq-answer hidden mt-4">
+                        <p class="text-gray-300">Yes. Try it for free, only upgrade if you love it.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <button class="btn-primary" onclick="scrollToTop()">
+                    Start Your Free Blueprint Now
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="section-padding" style="background: linear-gradient(135deg, #0a0a0a 0%, #111111 50%, #1a1a1a 100%);">
+        <div class="container text-center">
+            <div class="fade-in">
+                <h2 class="text-5xl lg:text-6xl font-bold mb-6 text-white">
+                    Launch Your First Digital Product Today
+                </h2>
+                <p class="text-xl mb-8 max-w-3xl mx-auto leading-relaxed text-gray-300">
+                    <span class="font-semibold gradient-text">No experience needed.</span> No risk. No complicated setup. 
+                    Just tell us what you're passionate about, and we'll show you how to turn it into income.
+                </p>
+                
+                <div class="feature-card mb-12 max-w-2xl mx-auto" style="background: var(--bg-card); border: 1px solid var(--primary);">
+                    <h3 class="text-2xl font-bold mb-4 text-white">Start Free Today</h3>
+                    <p class="text-lg mb-6 text-gray-300">Get your personalized business blueprint in minutes. No credit card required.</p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <button class="btn-primary text-lg px-8 py-4" onclick="scrollToTop()">
+                            Get My Free Blueprint
+                        </button>
+                        <button class="btn-secondary text-lg px-8 py-4" onclick="scrollToDemo()">
+                            Watch 2-Min Demo
+                        </button>
+                    </div>
+                    <p class="text-sm mt-4 text-gray-400">✓ Free forever • ✓ No credit card • ✓ Start earning in days</p>
+                </div>
+
+                <!-- Final Trust Elements -->
+                <div class="grid md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+                    <div class="text-center feature-card">
+                        <div class="text-3xl font-bold mb-2 gradient-text">2,000+</div>
+                        <div class="text-sm text-gray-300">Successful Products Launched with AI</div>
+                    </div>
+                    <div class="text-center feature-card">
+                        <div class="text-3xl font-bold mb-2 gradient-text">$8.9M+</div>
+                        <div class="text-sm text-gray-300">Revenue Generated</div>
+                    </div>
+                    <div class="text-center feature-card">
+                        <div class="text-3xl font-bold mb-2 gradient-text">98%</div>
+                        <div class="text-sm text-gray-300">Success Rate</div>
+                    </div>
+                    <div class="text-center feature-card">
+                        <div class="text-3xl font-bold mb-2 gradient-text">72hrs</div>
+                        <div class="text-sm text-gray-300">To First Sale</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scrolling
+        function scrollToFeatures() {
+            document.querySelector('.section-padding.bg-white').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToDemo() {
+            document.querySelector('.section-padding.bg-gray-50').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // FAQ Toggle Function
+        function toggleFAQ(index) {
+            const faqItems = document.querySelectorAll('.faq-item');
+            const faqAnswer = faqItems[index].querySelector('.faq-answer');
+            const faqIcon = faqItems[index].querySelector('.faq-icon');
+            
+            // Close all other FAQs
+            faqItems.forEach((item, i) => {
+                if (i !== index) {
+                    item.querySelector('.faq-answer').classList.add('hidden');
+                    item.querySelector('.faq-icon').textContent = '+';
+                }
+            });
+            
+            // Toggle current FAQ
+            if (faqAnswer.classList.contains('hidden')) {
+                faqAnswer.classList.remove('hidden');
+                faqIcon.textContent = '−';
+            } else {
+                faqAnswer.classList.add('hidden');
+                faqIcon.textContent = '+';
+            }
+        }
+
+        // Add some interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effects to buttons
+            document.querySelectorAll('.btn-primary, .btn-secondary').forEach(btn => {
+                btn.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                });
+                btn.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Add click effects
+            document.querySelectorAll('.btn-primary, .btn-secondary').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    // Create ripple effect
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    ripple.classList.add('ripple');
+                    
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+        });
+
+        // Add ripple effect styles
+        const style = document.createElement('style');
+        style.textContent = `
+            .btn-primary, .btn-secondary {
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .ripple {
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.3);
+                transform: scale(0);
+                animation: ripple-animation 0.6s linear;
+                pointer-events: none;
+            }
+            
+            @keyframes ripple-animation {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

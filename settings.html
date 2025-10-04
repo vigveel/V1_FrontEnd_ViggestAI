@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Settings • Viggest AI Builder</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body class="min-h-screen">
+	<div id="app-header" class="border-b border-white/10 backdrop-blur-sm sticky top-0 z-30"></div>
+	<main class="max-w-3xl mx-auto px-4 py-10">
+		<h1 class="text-2xl font-semibold mb-4">Settings</h1>
+		<div class="mock-frame p-6">
+			<div class="grid md:grid-cols-2 gap-4">
+				<div>
+					<label class="text-sm text-white/70">Default Language</label>
+					<select id="defLang" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 mt-1">
+						<option>EN</option>
+						<option>ES</option>
+					</select>
+				</div>
+				<div>
+					<label class="text-sm text-white/70">Default Goal</label>
+					<select id="defGoal" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 mt-1">
+						<option>First $100</option>
+						<option>First $1k</option>
+						<option>MRR</option>
+						<option>Audience</option>
+					</select>
+				</div>
+				<div>
+					<label class="text-sm text-white/70">Plan (UI only)</label>
+					<select id="defPlan" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 mt-1">
+						<option>Free</option>
+						<option>Pro</option>
+					</select>
+				</div>
+			</div>
+			<div class="flex justify-end mt-6">
+				<button id="saveBtn" class="bg-blue-500 hover:bg-blue-600 rounded-xl px-5 py-3">Save</button>
+			</div>
+		</div>
+	</main>
+	<div id="toast"></div>
+	<script src="/assets/app.js"></script>
+	<script>
+		App.renderHeader('settings');
+		const s = App.state;
+		$('#defLang').value = s.form.language;
+		$('#defGoal').value = s.form.goal;
+		$('#defPlan').value = s.auth.plan;
+		$('#saveBtn').addEventListener('click', ()=>{
+			s.form.language = $('#defLang').value;
+			s.form.goal = $('#defGoal').value;
+			s.auth.plan = $('#defPlan').value;
+			App.saveState();
+			App.toast('Saved');
+		});
+	</script>
+</body>
+</html>
+
+

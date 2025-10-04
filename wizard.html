@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Wizard • Viggest AI Builder</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body class="min-h-screen">
+	<div id="app-header" class="border-b border-white/10 backdrop-blur-sm sticky top-0 z-30"></div>
+	<main class="max-w-6xl mx-auto px-4 py-8">
+		<header class="flex items-center justify-between mb-6">
+			<div>
+				<h1 class="text-2xl font-semibold">Build Your Product</h1>
+				<p class="text-white/60 text-sm">Login → Profile Discovery → Unique Product Idea → Irresistible Offer → Launch & Scale</p>
+			</div>
+			<div class="plan-badge text-sm" id="planBadge">Plan: Free</div>
+		</header>
+
+		<!-- Stepper -->
+		<ol class="grid grid-cols-4 gap-3 text-sm mb-6">
+			<li class="step p-3 rounded-xl border border-white/10 text-center">Profile</li>
+			<li class="step p-3 rounded-xl border border-white/10 text-center">Idea</li>
+			<li class="step p-3 rounded-xl border border-white/10 text-center">Offer</li>
+			<li class="step p-3 rounded-xl border border-white/10 text-center">Results</li>
+		</ol>
+
+		<!-- Steps container -->
+		<section id="step1" class="mock-frame p-6 mb-6 hidden">
+			<h2 class="text-xl font-semibold mb-4">Profile Discovery</h2>
+			<div class="grid md:grid-cols-2 gap-4">
+				<div>
+					<label class="text-sm text-white/70">Experience Level</label>
+					<select id="level" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 mt-1">
+						<option>Beginner</option>
+						<option>Intermediate</option>
+						<option>Advanced</option>
+					</select>
+				</div>
+				<div>
+					<label class="text-sm text-white/70">Language</label>
+					<select id="language" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 mt-1">
+						<option>EN</option>
+						<option>ES</option>
+					</select>
+				</div>
+				<div class="md:col-span-2">
+					<label class="text-sm text-white/70">Skills / Niche</label>
+					<input id="skills" placeholder="SMMA, cold outreach" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 mt-1"/>
+				</div>
+				<div>
+					<label class="text-sm text-white/70">Goal</label>
+					<select id="goal" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 mt-1">
+						<option>First $100</option>
+						<option>First $1k</option>
+						<option>MRR</option>
+						<option>Audience</option>
+					</select>
+				</div>
+			</div>
+			<div class="flex justify-end mt-6">
+				<button id="to2" class="bg-blue-500 hover:bg-blue-600 rounded-xl px-5 py-3">Next</button>
+			</div>
+		</section>
+
+		<section id="step2" class="mock-frame p-6 mb-6 hidden">
+			<h2 class="text-xl font-semibold mb-4">Unique Product Idea</h2>
+			<div class="space-y-4">
+				<div class="flex items-center gap-6">
+					<label class="inline-flex items-center gap-2"><input type="radio" name="hasIdea" value="yes" class="accent-blue-500"> <span>Yes</span></label>
+					<label class="inline-flex items-center gap-2"><input type="radio" name="hasIdea" value="no" class="accent-blue-500" checked> <span>No</span></label>
+				</div>
+				<div id="ideaBox" class="hidden">
+					<label class="text-sm text-white/70">Describe your idea</label>
+					<textarea id="ideaText" rows="4" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 mt-1"></textarea>
+				</div>
+				<p id="noNote" class="text-white/70">We’ll generate 3 tailored options next.</p>
+			</div>
+			<div class="flex justify-between mt-6">
+				<button id="back1" class="border border-white/10 rounded-xl px-5 py-3">Back</button>
+				<button id="to3" class="bg-blue-500 hover:bg-blue-600 rounded-xl px-5 py-3">Next</button>
+			</div>
+		</section>
+
+		<section id="step3" class="mock-frame p-6 mb-6 hidden">
+			<h2 class="text-xl font-semibold mb-2">Irresistible Offer</h2>
+			<p class="text-white/70 mb-4">Click Generate to build your offer, run validation, produce Whop copy, and get a 48h launch plan.</p>
+			<div class="grid md:grid-cols-3 gap-4">
+				<div class="md:col-span-2">
+					<button id="generate" class="bg-gradient-to-r from-blue-500 to-purple-500 hover:opacity-95 rounded-xl px-5 py-3">Generate Blueprint</button>
+					<span id="spinner" class="ml-3 hidden align-middle text-white/80">Generating…</span>
+				</div>
+				<div id="proGate" class="lock-stripes rounded-xl border border-white/10 p-4">
+					<h3 class="font-semibold mb-1">Email launch templates are Pro-only</h3>
+					<p class="text-sm text-white/70 mb-3">Unlock the warmest inbox entries youve ever sent.</p>
+					<button id="unlockPro" class="border border-white/20 hover:border-white/40 rounded-lg px-4 py-2">Unlock with Pro</button>
+				</div>
+			</div>
+			<div class="flex justify-between mt-6">
+				<button id="back2" class="border border-white/10 rounded-xl px-5 py-3">Back</button>
+			</div>
+		</section>
+
+		<section id="step4" class="mock-frame p-0 mb-6 hidden">
+			<div class="border-b border-white/10 px-6 pt-4">
+				<nav class="flex gap-2" id="tabs">
+					<button data-tab="bp" class="tab px-4 py-2 rounded-t-lg border border-b-0 border-white/10">Blueprint</button>
+					<button data-tab="whop" class="tab px-4 py-2 rounded-t-lg border border-b-0 border-white/10">Whop Copy</button>
+					<button data-tab="launch" class="tab px-4 py-2 rounded-t-lg border border-b-0 border-white/10">Launch 48h</button>
+					<button data-tab="export" class="tab px-4 py-2 rounded-t-lg border border-b-0 border-white/10">Export</button>
+				</nav>
+			</div>
+			<div class="p-6" id="tabContent"></div>
+		</section>
+	</main>
+	<div id="toast"></div>
+	<script src="/assets/app.js"></script>
+	<script>
+		App.renderHeader();
+		const s = App.state;
+		const steps = [$('#step1'), $('#step2'), $('#step3'), $('#step4')];
+		const stepEls = $all('.step');
+		function showStep(n){
+			steps.forEach((el,i)=> el.classList.toggle('hidden', i!==n-1));
+			stepEls.forEach((el,i)=>{
+				el.classList.toggle('bg-white/10', i===n-1);
+				el.classList.toggle('border-white/30', i===n-1);
+			});
+			s.step = n; App.saveState();
+		}
+		// Bind plan badge
+		function refreshPlan(){ $('#planBadge').textContent = 'Plan: ' + (s.auth.plan||'Free');
+			$('#proGate').classList.toggle('hidden', s.auth.plan==='Pro'); }
+		refreshPlan();
+
+		// Init form values
+		$('#level').value = s.form.level;
+		$('#language').value = s.form.language;
+		$('#skills').value = s.form.skills;
+		$('#goal').value = s.form.goal;
+		showStep(s.step || 1);
+
+		// Step 1
+		$('#level').addEventListener('change', e=>{ s.form.level = e.target.value; App.saveState(); });
+		$('#language').addEventListener('change', e=>{ s.form.language = e.target.value; App.saveState(); });
+		$('#skills').addEventListener('input', e=>{ s.form.skills = e.target.value; App.saveState(); });
+		$('#goal').addEventListener('change', e=>{ s.form.goal = e.target.value; App.saveState(); });
+		$('#to2').addEventListener('click', ()=>{ showStep(2); });
+
+		// Step 2
+		const radios = $all('input[name="hasIdea"]');
+		radios.forEach(r=> r.addEventListener('change', ()=>{
+			s.form.hasIdea = (document.querySelector('input[name="hasIdea"]:checked').value === 'yes');
+			$('#ideaBox').classList.toggle('hidden', !s.form.hasIdea);
+			$('#noNote').classList.toggle('hidden', s.form.hasIdea);
+			App.saveState();
+		}));
+		$('#ideaText').addEventListener('input', e=>{ s.form.ideaText = e.target.value; App.saveState(); });
+		// reflect current
+		document.querySelector('input[name="hasIdea"][value="'+(s.form.hasIdea?'yes':'no')+'"]').checked = true;
+		$('#ideaBox').classList.toggle('hidden', !s.form.hasIdea);
+		$('#noNote').classList.toggle('hidden', s.form.hasIdea);
+		$('#back1').addEventListener('click', ()=> showStep(1));
+		$('#to3').addEventListener('click', ()=> showStep(3));
+
+		// Step 3
+		$('#unlockPro').addEventListener('click', ()=>{ App.setPlan('Pro'); refreshPlan(); });
+		$('#back2').addEventListener('click', ()=> showStep(2));
+		$('#generate').addEventListener('click', async ()=>{
+			$('#spinner').classList.remove('hidden');
+			s.loading = true; App.saveState();
+			try {
+				const r = await fetch('/api/generate', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(s.form) });
+				const data = await r.json();
+				s.blueprint = data; App.saveState();
+				buildResults();
+				showStep(4);
+			} finally {
+				$('#spinner').classList.add('hidden');
+				s.loading = false; App.saveState();
+			}
+		});
+
+		// Step 4 tabs
+		const tabContent = $('#tabContent');
+		function setActiveTab(name){
+			$all('.tab').forEach(btn=>{
+				const active = btn.dataset.tab===name;
+				btn.classList.toggle('bg-white/10', active);
+				btn.classList.toggle('border-white/30', active);
+			});
+		}
+		function buildBlueprintTab(){
+			const bp = s.blueprint || {};
+			const idea = JSON.stringify(bp.idea || { name:'Sample', one_liner:'…', audience:'…' }, null, 2);
+			const offer = JSON.stringify(bp.offer || { deliverables:[], pricing:{ tiers:[] } }, null, 2);
+			const validation = JSON.stringify(bp.validation || { decision:'REVIEW' }, null, 2);
+			tabContent.innerHTML = `
+				<div class="grid md:grid-cols-2 gap-4">
+					<div class="p-4 rounded-xl border border-white/10">
+						<h3 class="font-semibold mb-2">Idea</h3>
+						<pre class="code-block">${idea}</pre>
+					</div>
+					<div class="p-4 rounded-xl border border-white/10">
+						<h3 class="font-semibold mb-2">Offer</h3>
+						<pre class="code-block">${offer}</pre>
+					</div>
+				</div>
+				<div class="p-4 rounded-xl border border-white/10 mt-4">
+					<h3 class="font-semibold mb-2">Validation</h3>
+					<pre class="code-block">${validation}</pre>
+				</div>
+			`;
+		}
+		function buildWhopTab(){
+			const w = (s.blueprint && s.blueprint.whop) || { title:'Title…', subtitle:'Subtitle…', description:'Description…', bullets:['One','Two'], faqs:['Q1?','Q2?'] };
+			tabContent.innerHTML = `
+				<div class="grid md:grid-cols-2 gap-4">
+					<div class="p-4 rounded-xl border border-white/10">
+						<div class="flex items-center justify-between"><h3 class="font-semibold">Title</h3><button class="text-sm underline" id="copyTitle">Copy</button></div>
+						<p class="mt-2">${w.title}</p>
+					</div>
+					<div class="p-4 rounded-xl border border-white/10">
+						<div class="flex items-center justify-between"><h3 class="font-semibold">Subtitle</h3><button class="text-sm underline" id="copySubtitle">Copy</button></div>
+						<p class="mt-2">${w.subtitle}</p>
+					</div>
+					<div class="md:col-span-2 p-4 rounded-xl border border-white/10">
+						<div class="flex items-center justify-between"><h3 class="font-semibold">Description</h3><button class="text-sm underline" id="copyDesc">Copy</button></div>
+						<textarea readonly class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 mt-2" rows="5">${w.description}</textarea>
+					</div>
+					<div class="p-4 rounded-xl border border-white/10">
+						<div class="flex items-center justify-between"><h3 class="font-semibold">Bullets</h3><button class="text-sm underline" id="copyBullets">Copy All</button></div>
+						<ul class="list-disc list-inside mt-2 text-white/80">${(w.bullets||[]).map(b=>`<li>${b}</li>`).join('')}</ul>
+					</div>
+					<div class="p-4 rounded-xl border border-white/10">
+						<h3 class="font-semibold mb-2">FAQs</h3>
+						<ul class="list-disc list-inside text-white/80">${(w.faqs||[]).map(f=>`<li>${f}</li>`).join('')}</ul>
+					</div>
+				</div>
+			`;
+			$('#copyTitle').onclick = ()=> App.copy(w.title);
+			$('#copySubtitle').onclick = ()=> App.copy(w.subtitle);
+			$('#copyDesc').onclick = ()=> App.copy(w.description);
+			$('#copyBullets').onclick = ()=> App.copy((w.bullets||[]).join('\n'));
+		}
+		function buildLaunchTab(){
+			const l = (s.blueprint && s.blueprint.launch) || { twitter:{ main:'', replies:[] }, reddit:{ post:'', comment:'' }, discord:{ announcement:'' }, email:{ body:'' } };
+			tabContent.innerHTML = `
+				<div class="grid md:grid-cols-2 gap-4">
+					<div class="p-4 rounded-xl border border-white/10">
+						<h3 class="font-semibold mb-2">Twitter</h3>
+						<label class="text-sm text-white/70">Main post</label>
+						<textarea id="twMain" rows="4" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 mt-1">${l.twitter.main||''}</textarea>
+						<h4 class="mt-3 text-sm text-white/70">Replies</h4>
+						<ul id="twReplies" class="list-disc list-inside text-white/80">${(l.twitter.replies||[]).map(r=>`<li contenteditable class='outline-none'>${r}</li>`).join('')}</ul>
+					</div>
+					<div class="p-4 rounded-xl border border-white/10">
+						<h3 class="font-semibold mb-2">Reddit</h3>
+						<label class="text-sm text-white/70">Post angle</label>
+						<textarea id="rdPost" rows="3" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 mt-1">${l.reddit.post||''}</textarea>
+						<label class="text-sm text-white/70">Comment template</label>
+						<textarea id="rdComment" rows="3" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 mt-1">${l.reddit.comment||''}</textarea>
+					</div>
+					<div class="p-4 rounded-xl border border-white/10">
+						<h3 class="font-semibold mb-2">Discord</h3>
+						<textarea id="dcAnn" rows="4" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 mt-1">${l.discord.announcement||''}</textarea>
+					</div>
+					<div class="p-4 rounded-xl border border-white/10 ${App.state.auth.plan==='Pro' ? '' : 'opacity-70 relative'}">
+						<h3 class="font-semibold mb-2">Email</h3>
+						${App.state.auth.plan==='Pro' ? `
+							<textarea id="emBody" rows="6" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 mt-1">${l.email.body||''}</textarea>
+						`: `
+							<div class="absolute inset-0 flex items-center justify-center">
+								<div class="lock-stripes border border-white/10 rounded-xl p-4 text-center">
+									<p class="mb-2">Pro required to edit email templates</p>
+									<button id="unlockFromEmail" class="border border-white/20 hover:border-white/40 rounded-lg px-4 py-2">Unlock with Pro</button>
+								</div>
+							</div>
+						`}
+					</div>
+				</div>
+			`;
+			const emailBtn = $('#unlockFromEmail');
+			if (emailBtn) emailBtn.onclick = ()=>{ App.setPlan('Pro'); refreshPlan(); buildLaunchTab(); };
+		}
+		function buildExportTab(){
+			tabContent.innerHTML = `
+				<div class="flex flex-wrap gap-3">
+					<button id="dlJson" class="bg-blue-500 hover:bg-blue-600 rounded-xl px-4 py-2">Download JSON</button>
+					<button id="dlMd" class="bg-purple-500 hover:bg-purple-600 rounded-xl px-4 py-2">Download Markdown</button>
+				</div>
+			`;
+			$('#dlJson').onclick = ()=> App.download('blueprint.json', JSON.stringify(s.blueprint||{}, null, 2), 'application/json');
+			$('#dlMd').onclick = ()=> App.download('blueprint.md', App.mdFromBlueprint(s.blueprint), 'text/markdown');
+		}
+		function buildResults(){ buildBlueprintTab(); setActiveTab('bp'); }
+		$all('#tabs .tab').forEach(btn=> btn.addEventListener('click', ()=>{
+			const t = btn.dataset.tab; setActiveTab(t);
+			if (t==='bp') buildBlueprintTab();
+			if (t==='whop') buildWhopTab();
+			if (t==='launch') buildLaunchTab();
+			if (t==='export') buildExportTab();
+		}));
+		if (s.blueprint) { buildResults(); }
+	</script>
+	</body>
+</html>
+
+

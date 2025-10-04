@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Auth • Viggest AI Builder</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body class="min-h-screen">
+	<div id="app-header" class="border-b border-white/10 backdrop-blur-sm sticky top-0 z-30"></div>
+	<main class="max-w-6xl mx-auto px-4 py-10">
+		<div class="grid md:grid-cols-2 gap-6">
+			<section class="mock-frame p-6 md:p-8 hover-lift fade-in">
+				<h1 class="text-2xl font-semibold mb-2">Sign In</h1>
+				<p class="text-white/70 mb-6">Return to your builder. Ship faster. Win bigger.</p>
+				<form id="signin" class="space-y-4">
+					<input id="si_email" type="email" placeholder="Email" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+					<input id="si_password" type="password" placeholder="Password" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+					<button class="w-full bg-blue-500 hover:bg-blue-600 transition-colors rounded-xl px-4 py-3 font-medium">Sign In</button>
+				</form>
+			</section>
+			<section class="mock-frame p-6 md:p-8 hover-lift fade-in">
+				<h2 class="text-2xl font-semibold mb-2">Create Account</h2>
+				<p class="text-white/70 mb-6">Your unfair advantage: a product, offer and launch plan in minutes.</p>
+				<form id="signup" class="space-y-4">
+					<input id="su_email" type="email" placeholder="Email" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+					<input id="su_password" type="password" placeholder="Password" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+					<button class="w-full bg-blue-500 hover:bg-blue-600 transition-colors rounded-xl px-4 py-3 font-medium">Sign Up</button>
+				</form>
+			</section>
+		</div>
+
+		<div class="mock-frame mt-6 p-6 md:p-8 hover-lift fade-in">
+			<div class="flex items-start md:items-center justify-between gap-6 flex-col md:flex-row">
+				<div>
+					<h3 class="text-xl font-semibold mb-1">Pro unlocks Advanced Funnel, A/B testing, Scaling playbooks.</h3>
+					<p class="text-white/70">Move with certainty. Convert faster. Scale cleaner.</p>
+				</div>
+				<button id="upgradePro" class="bg-gradient-to-r from-blue-500 to-purple-500 hover:opacity-95 rounded-xl px-5 py-3 font-medium">Upgrade to Pro</button>
+			</div>
+		</div>
+
+		<section class="mt-10 grid md:grid-cols-3 gap-6">
+			<div class="col-span-2 mock-frame p-6">
+				<svg class="w-full h-64 rounded-xl" viewBox="0 0 800 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<rect x="0" y="0" width="800" height="300" rx="16" fill="url(#g1)"/>
+					<defs>
+						<linearGradient id="g1" x1="0" y1="0" x2="800" y2="300" gradientUnits="userSpaceOnUse">
+							<stop stop-color="#111827"/>
+							<stop offset="1" stop-color="#0B1220"/>
+						</linearGradient>
+					</defs>
+					<g opacity=".9">
+						<rect x="40" y="40" width="200" height="16" rx="8" fill="#3B82F6"/>
+						<rect x="40" y="72" width="360" height="12" rx="6" fill="#ffffff22"/>
+						<rect x="40" y="96" width="320" height="12" rx="6" fill="#ffffff22"/>
+						<rect x="40" y="120" width="280" height="12" rx="6" fill="#ffffff22"/>
+						<rect x="420" y="60" width="340" height="200" rx="12" fill="#111111" stroke="#ffffff22"/>
+						<rect x="440" y="80" width="140" height="12" rx="6" fill="#8B5CF6"/>
+						<rect x="440" y="104" width="280" height="10" rx="5" fill="#ffffff22"/>
+						<rect x="440" y="124" width="260" height="10" rx="5" fill="#ffffff22"/>
+						<rect x="440" y="144" width="220" height="10" rx="5" fill="#ffffff22"/>
+					</g>
+				</svg>
+			</div>
+			<div class="mock-frame p-6">
+				<h4 class="font-semibold mb-2">Why builders love Viggest</h4>
+				<ul class="space-y-2 text-white/80 text-sm">
+					<li>— Clear steps, zero fluff</li>
+					<li>— Offers that convert immediately</li>
+					<li>— Launch plans that actually ship</li>
+				</ul>
+			</div>
+		</section>
+	</main>
+
+	<div id="toast"></div>
+	<script src="/assets/app.js"></script>
+	<script>
+		App.renderHeader();
+		// Sign in handler
+		document.getElementById('signin').addEventListener('submit', (e)=>{
+			e.preventDefault();
+			const email = document.getElementById('si_email').value.trim();
+			const s = App.state; s.auth.email = email; s.auth.plan = 'Free'; App.saveState();
+			location.href = '/wizard.html';
+		});
+		// Sign up handler
+		document.getElementById('signup').addEventListener('submit', (e)=>{
+			e.preventDefault();
+			const email = document.getElementById('su_email').value.trim();
+			const s = App.state; s.auth.email = email; s.auth.plan = 'Free'; App.saveState();
+			location.href = '/wizard.html';
+		});
+		document.getElementById('upgradePro').addEventListener('click', ()=>{ App.setPlan('Pro'); });
+	</script>
+</body>
+</html>
+
+
